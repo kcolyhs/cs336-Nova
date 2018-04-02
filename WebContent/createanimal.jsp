@@ -24,7 +24,12 @@ public void jspInit(){
 	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-<% out.print(WebsiteElements.getHeader());%>
+<% 
+if ((session.getAttribute("userid") == null) || (session.getAttribute("userid") == ""))
+	out.print(WebsiteElements.getHeader(false));
+else
+	out.print(WebsiteElements.getHeader(true));
+%>
 <%
     //Parse the form data
     if(request.getParameter("reqType")!=null){

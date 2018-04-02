@@ -1,8 +1,8 @@
 package db336;
 
-public class SessionHandler{
+public class QueryHandler{
 	String sessionID;
-	public SessionHandler(String sid) {
+	public QueryHandler(String sid) {
 		this.sessionID = sid;
 	}
 	

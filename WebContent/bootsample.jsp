@@ -20,63 +20,67 @@ public void jspInit(){
 	<title>336 NOVA - </title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 </head>
 <body>
+<div id="header" style="background-color:red;">
+	<div class = "page-header" style="padding:20px;margin-bottom:0px;margin-top:0px;color:white">
+		<h1 >CS336 - NOVA <small style="color:white" align="right">Animal Shelter Database Services</small></h1>
+	</div>	
+	<nav class="navbar navbar-inverse">
+	  <div class="container-fluid">
+    	<div class="navbar-header">
+	     <a class="navbar-brand" href="home.jsp"><span class="glyphicon glyphicon-home"></span> Home</a>
+	    </div>
+	    <ul class="nav navbar-nav">
+      		<li class="active"></li>
+	     	<li class="dropdown">
+		      	<a class="dropdown-toggle" data-toggle="dropdown" href="#">Animals
+		        <span class="caret"></span></a>
+		        <ul class="dropdown-menu">
+		         	<li><a href="createanimal.jsp">Register an Animal</a></li>
+		         	<li><a href="animalquery.jsp">Search Animals</a></li>
+		          	<li><a href="#">Search for a Veterinarian</a></li>
+		          	<li><a href="#">Adopt an Animal</a></li>
+		        </ul>
+	      	</li>
+	      	<li>
+	      		<a class="dropdown-toggle" data-toggle="dropdown" href="#">Shelters/Fosters
+		        <span class="caret"></span></a>
+		        <ul class="dropdown-menu">
+		         	<li><a href="createanimal.jsp">Register a Shelter</a></li>
+		         	<li><a href="#">Search for Shelters</a></li>
+		         	<li><a href="createanimal.jsp">Register a Foster Home</a></li>
+		         	<li><a href="#">Search for Foster Homes</a></li>
+		        </ul>
+	        </li>
+	      	<li>
+	      	<a class="dropdown-toggle" data-toggle="dropdown" href="#"> Vets/Medicine
+		        <span class="caret"></span></a>
+		        <ul class="dropdown-menu">
+		         	<li><a href="createanimal.jsp">Register a Veterinarian</a></li>
+		         	<li><a href="#">Search for a Veterinarian</a></li>
+		          	<li><a href="#">Check Vaccination Records</a></li>
+		        </ul>
+	        </li>
+	      	<li><a href="#">Register to Adopt</a></li>
+	    </ul>
+	    <ul class="nav navbar-nav"style="float:right;align-text:right">
+	    	<li><a href="login.jsp"><span class="glyphicon glyphicon-user"></span> Login</a></li>
+	    	<li><a href="createuser.jsp"><span class="glyphicon glyphicon-pencil"></span> Register</a></li>
+	    	<li><a href="logout.jsp"><span class="glyphicon glyphicon-lock"></span> Logout</a></li>
+	    </ul>
+	  </div>
+	  
+	</nav>
+</div>
+
+
 <%= con %>
-<div class="page-header">
-  <h1>My First Bootstrap Page Header</h1>
-  <p>This part is inside a .container class. </p> 
-  <p>The .container class provides a responsive fixed width container.</p>           
-</div>
-<div class="row">
-  <div class="col-sm-4">.col-sm-4</div>
-  <div class="col-sm-4">.col-sm-4</div>
-  <div class="col-sm-4">.col-sm-4</div>
-</div>
-<div class= "well">Basic Well</div>
-
-
 <div class='alert alert-success alert-dismissible'>
 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 <strong>SUCCESS!</strong>Animal has been registered
-</div>
-
-<div class ="page-header">
-	Submit Form
-</div>
-
-<div class = "well">
-	<form method="post">
-			<input type="hidden" name="reqType" value="animal">
-			<table>
-				<tr>
-					<td>
-						<b>Name</b>
-					</td>
-					<td>
-						<input type="text" name="name" placeholder="Insert Animal's Name">
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<b>DoB</b>
-					</td>
-					<td>
-						<input type="date" name="DoB">
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<b>Species</b>
-					</td>
-					<td>
-						<input type="text" name="species" placeholder="Insert Animal's Species">
-					</td>
-				</tr>
-			</table>
-			<br>
-			<input type="submit" value="submit" class = "btn btn-primary">
-		</form>
 </div>
 
 <p>Search icon on a styled button:
