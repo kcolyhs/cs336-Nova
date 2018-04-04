@@ -35,6 +35,10 @@ else
 %>
 
 
+<h1>PLACEHOLDER DOG</h1>
+<img src="${pageContext.request.contextPath}/images/img.jpg"/>
+
+
 
 </body>
 </html>

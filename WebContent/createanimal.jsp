@@ -8,9 +8,11 @@
 <%! 
 ApplicationDB db;
 Connection con;
+QueryHandler qh;
 public void jspInit(){
 	db = new ApplicationDB();
 	con =  db.getConnection();
+	qh = new QueryHandler(con,db);
 }
 %>
 
@@ -32,84 +34,110 @@ else
 %>
 <%
     //Parse the form data
-    if(request.getParameter("reqType")!=null){
-        String animal_name = request.getParameter("name");
-        String DoB = request.getParameter("DoB");
-        String type = request.getParameter("");
-        out.println(DoB);
+    if(request.getParameter("createanimal")!=null){
+
+    	String animaltype = request.getParameter("animaltype");
+    	String animalname = request.getParameter("animalname");
+    	String DoB = request.getParameter("dob");
+    	String species = request.getParameter("species");
+    	if(animaltype==null){
+    		//ERROR NO TYPE
+    		out.print("<div class=\"alert alert-danger alert-dismissible\">\n" + 
+    				"  <a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a>\n" + 
+    				"  <strong>Error!</strong> - "+" Animal is missing a type field.\n" + 
+    				"</div >");
+    	}else if(animalname==null||animalname.equals("")){
+    		//MISSING NAME
+    		out.print("<div class=\"alert alert-danger alert-dismissible\">\n" + 
+        				"  <a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a>\n" + 
+        				"  <strong>Error!</strong> - "+" Animal is missing a name.\n" + 
+        				"</div >");
+    	}else if(DoB==null||DoB.equals("")){
+    		//MISSING DOB
+    		out.print("<div class=\"alert alert-danger alert-dismissible\">\n" + 
+        				"  <a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a>\n" + 
+        				"  <strong>Error!</strong> - "+animalname+" is missing the its Date of Birth.\n" + 
+        				"</div >");
+    	}else{
+    		if(species==null){
+    			species="unknown";
+    		}
+        	if(qh.InsertAnimal(animalname,DoB,species,animaltype)){
+        		//INSERT SUCCESS
+        		out.print("<div class=\"alert alert-success alert-dismissible\">\n" + 
+        				"  <a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a>\n" + 
+        				"  <strong>Success!</strong> - "+animalname+" has been registered.\n" + 
+        				"</div >");
+        	}else{
+        		//INSERT FAILURE
+        		out.println("INSERT FAILURE");
+        	}
+        			
+        			
+    	}
     }
-    
-    
     
 	//Generate the SQL statement and print out the response from the databases 
 %>
-	<br>
-	Debug<br>
-	Connection:<%= con %><br>
-	Session:<%=session.getId() %>
+		
 	
-	<h2 align="center">Register an Animal</h2>
-	<!-- Process the previous request -->
-	<h3>Instructions</h3>
-	<ul>
-		<li>Fill in the information for the new animal</li>
-		<li>Leave any unknown or N/A fields blank</li>
-		<li>Fields marked with a * are mandatory</li>
-		<li>For the species/type/ <i>Capitalize The First Letter of Each Word</i></li>
-	</ul>
-	<div>
-		<table>
-			<tr>
-				<td width=70px>
-					<b>Type</b>
-				</td>
-				<td>
-					<select name="animal_type">
-						<option value="dog">Dog</option>
-						<option value="cat">Cat</option>
-						<option value="reptile">Reptile</option>
-						<option value="bird">Bird</option>
-						<option value="other">Other</option>
+	
+	
+	<%
+	String typeselect=request.getParameter("animal_type");
+	if(typeselect==null)
+		typeselect="";
+	%>
+	<div class="container">
+		<h1 align="center">Register an Animal 
+		<button data-toggle="collapse" data-target="#instructions" class="btn btn-danger">
+			<span class="glyphicon glyphicon-info-sign"></span>
+		</button>
+		</h1>
+		<div id="instructions" class="collapse">
+			<div class=.container>
+				<h3>Instructions</h3>
+				<ol>
+					<li>Select the correct type of animal to enter</li>
+					<li>Enter the animal's DOB. </li>
+					<li><ul>
+						<li>Enter the animal's species.</li>
+						<li>Capitalize the first letter.</li>
+						<li>Leave blank if species is unknown</li>
+					</ul></li>
+				</ol>
+			</div>	
+		</div>
+		<form  method="post" action="#">
+			<input type="hidden" name="createanimal" value="true">
+			<div class="form-group">
+				<label for="typeselect">Select Animal Type</label>
+				<select class="form-control" id="typeselect"name="animaltype">
+						<option value="dog" 	<%if(typeselect.equals("dog"))out.print("selected"); %> >Dog</option>
+						<option value="cat"		<%if(typeselect.equals("cat"))out.print("selected"); %> >Cat</option>
+						<option value="reptile" <%if(typeselect.equals("reptile"))out.print("selected"); %> >Reptile</option>
+						<option value="bird" 	<%if(typeselect.equals("bird"))out.print("selected"); %> >Bird</option>
+						<option value="other" 	<%if(typeselect.equals("other"))out.print("selected"); %> >Other</option>
 					</select>
-				</td>
-			</tr>
-		</table>
-		<form method="post">
-			<input type="hidden" name="reqType" value="animal">
-			<table>
-				<tr>
-					<td>
-						<b>Name</b>
-					</td>
-					<td>
-						<input type="text" name="name" placeholder="Insert Animal's Name">
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<b>DoB</b>
-					</td>
-					<td>
-						<input type="date" name="DoB">
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<b>Species</b>
-					</td>
-					<td>
-						<input type="text" name="species" placeholder="Insert Animal's Species">
-					</td>
-				</tr>
-			</table>
-			<br>
-			<input type="submit" value="submit">
+			</div>
+			<div class="form-group">
+				<div class="input-group">
+					<span class="input-group-addon">Animal Name</span>
+					<input id="username" type="text" class="form-control" name="animalname" placeholder="Name" required autofocus>
+				</div>
+				<div class="input-group">
+				    <span class="input-group-addon">Date of Birth</span>
+				    <input id="password" type="date" class="form-control" name="dob" required>
+				</div>
+				<div class="input-group">
+				    <span class="input-group-addon">Species</span>
+				    <input id="password" type="text" class="form-control" name="species" placeholder="Species">
+				</div>
+			  		<input class="btn" type="submit" value="Register Animal">
+	  		</div>
 		</form>
+		
 	</div>
-
-
-
-
 
 </body>
 </html>

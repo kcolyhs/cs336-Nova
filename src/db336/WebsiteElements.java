@@ -4,7 +4,7 @@ public class WebsiteElements {
 
 
 public static String getHeader(boolean loggedIn) {
-	String ret = "<div id=\"header\" style=\"background-color:red;\">\n" + 
+	String ret = "<div id=\"header\" style=\"background-color:#d9534f;\">\n" + 
 			"	<div class = \"page-header\" style=\"padding:20px;margin-bottom:0px;margin-top:0px;color:white\">\n" + 
 			"		<h1 >CS336 - NOVA <small style=\"color:white\" align=\"right\">Animal Shelter Database Services</small></h1>\n" + 
 			"	</div>	\n" + 
@@ -20,8 +20,7 @@ public static String getHeader(boolean loggedIn) {
 			"		        <span class=\"caret\"></span></a>\n" + 
 			"		        <ul class=\"dropdown-menu\">\n" + 
 			"		         	<li><a href=\"createanimal.jsp\">Register an Animal</a></li>\n" + 
-			"		         	<li><a href=\"animalquery.jsp\">Search Animals</a></li>\n" + 
-			"		          	<li><a href=\"#\">Search for a Veterinarian</a></li>\n" + 
+			"		         	<li><a href=\"animalquery.jsp\">Search Animals</a></li>\n" +
 			"		          	<li><a href=\"adoptform.jsp\">Adopt an Animal</a></li>\n" + 
 			"		        </ul>\n" + 
 			"	      	</li>\n" + 

@@ -56,6 +56,7 @@ else
 						  "<strong>Successful Login</strong> - Welcome "+username+
 						  "!<a style=\"text-align:right;float:right\" class=\"alert-link\" href=\"home.jsp\">Continue</a>"+
 						  "</div>");
+				response.setHeader("Refresh", "3;url=home.jsp");
 	
 		        session.setAttribute("userid", result.getString("userID"));
 		        out.println("USERID:"+result.getInt("userID"));
@@ -70,6 +71,7 @@ else
 		out.print(e);
 	}
 %>
+
 </div>
 <div class = "container">
 	<h1>Login</h1>
@@ -77,11 +79,11 @@ else
 		<input type="hidden" name="loginAttempt" value="True">
 		<div class="input-group">
 			<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-			<input id="username" type="text" class="form-control" name="username" placeholder="Username">
+			<input id="username" type="text" class="form-control" name="username" placeholder="Username" autofocus required>
 		</div>
 		<div class="input-group">
 		    <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-		    <input id="password" type="password" class="form-control" name="password" placeholder="Password">
+		    <input id="password" type="password" class="form-control" name="password" placeholder="Password" required>
 		  </div>
 		  <br>
 	  	<input class="btn" type="submit" value="Login">

@@ -22,13 +22,32 @@ public void jspInit(){
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+	
+	 <style>
+  body {
+      position: relative; 
+  }
+  .affix {
+      top:0;
+      width: 100%;
+      z-index: 9999 !important;
+  }
+  .navbar {
+      margin-bottom: 0px;
+  }
+
+  .affix ~ .container-fluid {
+     position: relative;
+     top: 50px;
+  }
+  </style>
 </head>
-<body>
+<body data-spy="scroll" data-target=".navbar" data-offset="50">
 <div id="header" style="background-color:red;">
 	<div class = "page-header" style="padding:20px;margin-bottom:0px;margin-top:0px;color:white">
 		<h1 >CS336 - NOVA <small style="color:white" align="right">Animal Shelter Database Services</small></h1>
 	</div>	
-	<nav class="navbar navbar-inverse">
+	<nav class="navbar navbar-inverse" data-spy="affix" data-offset-top="114">
 	  <div class="container-fluid">
     	<div class="navbar-header">
 	     <a class="navbar-brand" href="home.jsp"><span class="glyphicon glyphicon-home"></span> Home</a>
@@ -88,6 +107,10 @@ public void jspInit(){
       <span class="glyphicon glyphicon-search"></span> Search
     </button>
 </p>
+<div class="alert alert-success alert-dismissible">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  <strong>Success!</strong> +animalname+ has been registered.
+</div >
 
 </body>
 </html>
