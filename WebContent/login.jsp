@@ -37,6 +37,9 @@ else
 	try{
 		String loginAttempt = request.getParameter("loginAttempt");
 		if(loginAttempt!=null&&loginAttempt.equals("True")){
+			
+		}
+		if(loginAttempt!=null&&loginAttempt.equals("True")){
 			ApplicationDB db = new ApplicationDB();
 			Connection con = db.getConnection();
 	

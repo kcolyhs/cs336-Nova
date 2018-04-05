@@ -43,7 +43,7 @@ public static String getHeader(boolean loggedIn) {
 			"		          	<li><a href=\"#\">Check Vaccination Records</a></li>\n" + 
 			"		        </ul>\n" + 
 			"	        </li>\n" + 
-			"	      	<li><a href=\"#\">Register to Adopt</a></li>\n" + 
+			"	      	<li><a href=\"regadopt.jsp\">Register to Adopt</a></li>\n" + 
 			"	    </ul>\n" + 
 			"	    <ul class=\"nav navbar-nav\"style=\"float:right;align-text:right\">\n";
 	if(loggedIn) {
