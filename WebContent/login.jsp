@@ -36,8 +36,8 @@ else
 <%
 	try{
 		String loginAttempt = request.getParameter("loginAttempt");
-		if(loginAttempt!=null&&loginAttempt.equals("True")){
-			
+		if(loginAttempt!=null&&loginAttempt.equals("needed")){
+			out.print("LOGIN NEEDED");
 		}
 		if(loginAttempt!=null&&loginAttempt.equals("True")){
 			ApplicationDB db = new ApplicationDB();
@@ -78,7 +78,7 @@ else
 </div>
 <div class = "container">
 	<h1>Login</h1>
-	<form method="post" action = "#">
+	<form method="get" action = "#">
 		<input type="hidden" name="loginAttempt" value="True">
 		<div class="input-group">
 			<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>

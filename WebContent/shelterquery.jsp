@@ -77,7 +77,7 @@ try {
 	
 	//Create a SQL statement
 	Statement stmt = con.createStatement();
-	//Get the combobox from the index.jsp
+	//Get the combobox from the index.jspsty
 	
 	
 	String str = "SELECT * FROM Shelter";
