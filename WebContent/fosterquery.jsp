@@ -21,7 +21,7 @@ public void jspDestroy(){
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>336 NOVA - Shelter Search</title>
+	<title>336 NOVA - Foster Home Search</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
@@ -41,35 +41,44 @@ try {
 	ApplicationDB db = new ApplicationDB();	
 	Connection con = db.getConnection();
 	
-	String shelterName, shelterPhone, shelterAddr;
-	if(request.getParameter("shelterName") != null)	{
-		shelterName = request.getParameter("shelterName");
+	String fosterFirst, fosterLast, fosterAddr, fosterPhone;
+	if(request.getParameter("fosterFirst") != null)	{
+		fosterFirst = request.getParameter("fosterFirst");
 	}else{
-		shelterName = "";
+		fosterFirst = "";
 	}
-	if(request.getParameter("shelterPhone") != null)	{
-		shelterPhone = request.getParameter("shelterPhone");
+	if(request.getParameter("fosterLast") != null)	{
+		fosterLast = request.getParameter("fosterLast");
 	}else{
-		shelterPhone = "";
+		fosterLast = "";
 	}
-	if(request.getParameter("shelterAddress") != null)	{
-		shelterAddr = request.getParameter("shelterAddress");
+	if(request.getParameter("fosterPhone") != null)	{
+		fosterPhone = request.getParameter("fosterPhone");
 	}else{
-		shelterAddr = "";
+		fosterPhone = "";
+	}
+	if(request.getParameter("fosterAddr") != null)	{
+		fosterAddr = request.getParameter("fosterAddr");
+	}else{
+		fosterAddr = "";
 	}
 	%>
 	<form class="form-inline" method="get" >
 		<div class="form-group mb-2">
-		<label for="shelterName" class="sr-only">Shelter Name</label>
-			<input type="text" class="form-control" name="shelterName" placeholder="Shelter Name" value="<%=shelterName%>">
+			<label for="fosterFirst" class="sr-only">First Name</label>
+			<input type="text" class="form-control" name="fosterFirst" placeholder="First Name" value="<%=fosterFirst%>">
 		</div>
 		<div class="form-group mb-2">
-			<label for="shelterPhone" class="sr-only">Phone</label>
-			<input type="text" class="form-control" name="shelterPhone" placeholder="Phone" value="<%=shelterPhone%>">
+			<label for="fosterLast" class="sr-only">Last Name</label>
+			<input type="text" class="form-control" name="fosterLast" placeholder="Last Name" value="<%=fosterLast%>">
 		</div>
 		<div class="form-group mb-2">
-			<label for="shelterAddress" class="sr-only">Address</label>
-			<input type="text" class="form-control" name="shelterAddress" placeholder="Address" value="<%=shelterAddr%>">
+			<label for="fosterPhone" class="sr-only">Phone</label>
+			<input type="text" class="form-control" name="fosterPhone" placeholder="Phone" value="<%=fosterPhone%>">
+		</div>
+		<div class="form-group mb-2">
+			<label for="fosterAddr" class="sr-only">Address</label>
+			<input type="text" class="form-control" name="fosterAddr" placeholder="Address" value="<%=fosterAddr%>">
 		</div>
 		<button type="submit" class="btn btn-primary">Search</button>
 	</form>
@@ -80,23 +89,29 @@ try {
 	//Get the combobox from the index.jsp
 	
 	
-	String str = "SELECT * FROM Shelter";
+	String str = "SELECT * FROM Foster_Home";
 	boolean searching = false;
-	if(!shelterName.equals("")){
-		str = str + " WHERE Shelter.shelter_name LIKE \"%" + shelterName + "%\"";
+	if(!fosterFirst.equals("")){
+		str = str + " WHERE Foster_Home.first_name LIKE \"%" + fosterFirst + "%\"";
 		searching = true;
 	}
-	if(!shelterPhone.equals("") && !searching){
-		str = str + " WHERE Shelter.phone LIKE \"%" + shelterPhone + "%\"";
+	if(!fosterLast.equals("") && !searching){
+		str = str + " WHERE Foster_Home.last_name LIKE \"%" + fosterLast + "%\"";
 		searching = true;
-	}else if(!shelterPhone.equals("") && searching){
-		str = str + " AND Shelter.phone LIKE \"%" + shelterPhone + "%\"";
+	}else if(!fosterLast.equals("") && searching){
+		str = str + " AND Foster_Home.last_name LIKE \"%" + fosterLast + "%\"";
 	}
-	if(!shelterAddr.equals("") && !searching){
-		str = str + " WHERE Shelter.address LIKE \"%" + shelterAddr + "%\"";
+	if(!fosterPhone.equals("") && !searching){
+		str = str + " WHERE Foster_Home.phone LIKE \"%" + fosterPhone + "%\"";
 		searching = true;		
-	}else if(!shelterAddr.equals("") && searching){
-		str = str + " AND Shelter.address LIKE \"%" + shelterAddr + "%\"";
+	}else if(!fosterPhone.equals("") && searching){
+		str = str + " AND Foster_Home.phone LIKE \"%" + fosterPhone + "%\"";
+	}
+	if(!fosterAddr.equals("") && !searching){
+		str = str + " WHERE Foster_Home.address LIKE \"%" + fosterAddr + "%\"";
+		searching = true;		
+	}else if(!fosterAddr.equals("") && searching){
+		str = str + " AND Foster_Home.address LIKE \"%" + fosterAddr + "%\"";
 	}
 	//Make a SELECT query from the sells table with the price range specified by the 'price' parameter at the index.jsp
 	//out.print("<p>" + str + "</p>");
@@ -108,7 +123,7 @@ try {
 	out.print("<thead>");
 	out.print("<tr>");
 	out.print("<th>");
-	out.print("Shelter Name");
+	out.print("Name");
 	out.print("</th>");
 	out.print("<th>");
 	out.print("Phone");
@@ -143,7 +158,7 @@ try {
 		if(alternate){
 			out.print("<tr class=\"active\">");
 			out.print("<td>");
-			out.print(result.getString("shelter_name"));
+			out.print(result.getString("first_name") + " " + result.getString("last_name"));
 			out.print("</td>");
 			out.print("<td>");
 			out.print(result.getString("phone"));
@@ -156,7 +171,7 @@ try {
 		}else{
 			out.print("<tr class=\"default\">");
 			out.print("<td>");
-			out.print(result.getString("shelter_name"));
+			out.print(result.getString("first_name") + " " + result.getString("last_name"));
 			out.print("</td>");
 			out.print("<td>");
 			out.print(result.getString("phone"));
