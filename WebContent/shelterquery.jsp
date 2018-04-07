@@ -35,40 +35,73 @@ else
 	out.print(WebsiteElements.getHeader(true));
 
 try {
+	
 
 	//Get the database connection
 	ApplicationDB db = new ApplicationDB();	
-	Connection con = db.getConnection();	
+	Connection con = db.getConnection();
 	
+	String shelterName, shelterPhone, shelterAddr;
+	if(request.getParameter("shelterName") != null)	{
+		shelterName = request.getParameter("shelterName");
+	}else{
+		shelterName = "";
+	}
+	if(request.getParameter("shelterPhone") != null)	{
+		shelterPhone = request.getParameter("shelterPhone");
+	}else{
+		shelterPhone = "";
+	}
+	if(request.getParameter("shelterAddress") != null)	{
+		shelterAddr = request.getParameter("shelterAddress");
+	}else{
+		shelterAddr = "";
+	}
 	%>
-	<form class="form-inline" action="shelterquery.jsp" >
+	<form class="form-inline" method="get" >
 		<div class="form-group mb-2">
 		<label for="shelterName" class="sr-only">Shelter Name</label>
-			<input type="text" class="form-control" id="shelterName" placeholder="Shelter Name" value="aaa">
+			<input type="text" class="form-control" name="shelterName" placeholder="Shelter Name" value="<%=shelterName%>">
 		</div>
 		<div class="form-group mb-2">
 			<label for="shelterPhone" class="sr-only">Phone</label>
-			<input type="text" class="form-control" id="shelterPhone" placeholder="Phone">
+			<input type="text" class="form-control" name="shelterPhone" placeholder="Phone" value="<%=shelterPhone%>">
 		</div>
 		<div class="form-group mb-2">
 			<label for="shelterAddress" class="sr-only">Address</label>
-			<input type="text" class="form-control" id="shelterAddress" placeholder="Address">
+			<input type="text" class="form-control" name="shelterAddress" placeholder="Address" value="<%=shelterAddr%>">
 		</div>
 		<button type="submit" class="btn btn-primary">Search</button>
 	</form>
-	<p><%= request.getParameter("shelterName") %></p>
 	<%
 	
 	//Create a SQL statement
 	Statement stmt = con.createStatement();
 	//Get the combobox from the index.jsp
-	String shelterName = request.getParameter("shelterName");
-	out.print("<p> input:" + shelterName + "</p>");
 	
-	//Make a SELECT query from the sells table with the price range specified by the 'price' parameter at the index.jsp
+	
 	String str = "SELECT * FROM Shelter";
-	//Run the query against the database.
+	boolean searching = false;
+	if(!shelterName.equals("")){
+		str = str + " WHERE Shelter.shelter_name LIKE \"%" + shelterName + "%\"";
+		searching = true;
+	}
+	if(!shelterPhone.equals("") && !searching){
+		str = str + " WHERE Shelter.phone LIKE \"%" + shelterPhone + "%\"";
+		searching = true;
+	}else if(!shelterPhone.equals("") && searching){
+		str = str + " AND Shelter.phone LIKE \"%" + shelterPhone + "%\"";
+	}
+	if(!shelterAddr.equals("") && !searching){
+		str = str + " WHERE Shelter.address LIKE \"%" + shelterAddr + "%\"";
+		searching = true;		
+	}else if(!shelterAddr.equals("") && searching){
+		str = str + " AND Shelter.address LIKE \"%" + shelterAddr + "%\"";
+	}
+	//Make a SELECT query from the sells table with the price range specified by the 'price' parameter at the index.jsp
+	out.print("<p>" + str + "</p>");
 	ResultSet result = stmt.executeQuery(str);
+	
 	
 	out.print("<div class=\"bs-example\">");
 	out.print("<table class=\"table\">");
@@ -89,7 +122,7 @@ try {
 	
 	boolean alternate = false;
 	//parse out the results
-	if(!result.next()){
+	if(!result.isBeforeFirst()){
 		out.print("<tr class=\"warning\">");
 		out.print("<td>");
 		out.print("No match");
