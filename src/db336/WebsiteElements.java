@@ -31,7 +31,7 @@ public static String getHeader(boolean loggedIn) {
 			"		         	<li><a href=\"createanimal.jsp\">Register a Shelter</a></li>\n" + 
 			"		         	<li><a href=\"shelterquery.jsp\">Search for Shelters</a></li>\n" + 
 			"		         	<li><a href=\"createfoster.jsp\">Register a Foster Home</a></li>\n" + 
-			"		         	<li><a href=\"queryfoster\">Search for Foster Homes</a></li>\n" + 
+			"		         	<li><a href=\"fosterquery.jsp\">Search for Foster Homes</a></li>\n" + 
 			"		        </ul>\n" + 
 			"	        </li>\n" + 
 			"	      	<li>\n" + 
@@ -39,7 +39,7 @@ public static String getHeader(boolean loggedIn) {
 			"		        <span class=\"caret\"></span></a>\n" + 
 			"		        <ul class=\"dropdown-menu\">\n" + 
 			"		         	<li><a href=\"createanimal.jsp\">Register a Veterinarian</a></li>\n" + 
-			"		         	<li><a href=\"#\">Search for a Veterinarian</a></li>\n" + 
+			"		         	<li><a href=\"vetquery.jsp\">Search for a Veterinarian</a></li>\n" + 
 			"		          	<li><a href=\"#\">Check Vaccination Records</a></li>\n" + 
 			"		        </ul>\n" + 
 			"	        </li>\n" + 

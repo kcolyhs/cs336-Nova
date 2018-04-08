@@ -95,22 +95,42 @@ public void jspInit(){
 	</nav>
 </div>
 
-
-<%= con %>
-<div class='alert alert-success alert-dismissible'>
-<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-<strong>SUCCESS!</strong>Animal has been registered
+<div class=".container">
+	
+	<table class="table table-hover table-striped">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Species</th>
+        <th>Age</th>
+      </tr>
+    </thead>
+    <tbody>
+	  	<tr>
+	        <td>Terry</td>
+	        <td>Dog</td>
+	        <td>Golden Retriever</td>
+	        <td>5</td>
+        </tr>
+	  	<tr>
+	        <td>Terry</td>
+	        <td>Dog</td>
+	        <td>Golden Retriever</td>
+	        <td>5</td>
+        </tr>
+	  	<tr>
+	        <td>Terry</td>
+	        <td>Dog</td>
+	        <td>Golden Retriever</td>
+	        <td>5</td>
+        </tr>
+    </tbody>	
+	</table>
 </div>
 
-<p>Search icon on a styled button:
-    <button type="button" class="btn btn-info">
-      <span class="glyphicon glyphicon-search"></span> Search
-    </button>
-</p>
-<div class="alert alert-success alert-dismissible">
-  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-  <strong>Success!</strong> +animalname+ has been registered.
-</div >
+
+
 
 </body>
 </html>

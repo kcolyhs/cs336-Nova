@@ -35,5 +35,47 @@ if ((session.getAttribute("userid") == null) || (session.getAttribute("userid") 
 else
 	out.print(WebsiteElements.getHeader(true));
 %>
+<%
+	int shelterID = Integer.valueOf(request.getParameter("shelterid"));
+	int animalID = Integer.valueOf(request.getParameter("animalid"));
+	int sessionID = Integer.valueOf((String)session.getAttribute("userid"));
+	java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+%>
+<div class=container>
+<%
+	try{
+	Statement stmt = con.createStatement();
+
+	String query = "INSERT INTO Adopts_From_R(userID,shelterID,animalID,Date) VALUES (?,?,?,?)";
+	PreparedStatement ps = con.prepareStatement(query);
+
+	ps.setInt(1,sessionID);
+	ps.setInt(2,shelterID);
+	ps.setInt(3,animalID);
+	ps.setDate(4,date);
+	ps.executeUpdate();
+	query = "DELETE FROM ShelteredIn_R where animalID=?";
+	ps = con.prepareStatement(query);
+	ps.setInt(1,animalID);
+	ps.executeUpdate();
+	
+	
+	
+	out.print("<div class=\"alert alert-success alert-dismissible\">\n" + 
+			"  <a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a>\n" + 
+			"  <strong>Success!</strong> - ID#"+sessionID+" has adopted animal#"+ animalID+" .\n" + 
+			"</div >");
+	
+	}catch(Exception e){
+		System.out.println(e);
+	}
+
+	
+%>
+</div>
+
+
+
+
 </body>
 </html>

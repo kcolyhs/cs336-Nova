@@ -37,10 +37,54 @@ else
 %>
 <div class="container">
 	<%
-		out.print(qh.getShelterDropdown());
+		int shelterid = Integer.valueOf(request.getParameter("shelter"));
 	%>
+	<h1><% out.print(qh.getShelterName(shelterid));%></h1>
+	<div class=".container">
+	<form method="get" action="adoptform3.jsp">
+	<input type="hidden" name="shelterid" value="<%out.print(shelterid);%>">
+
+	<table class="table table-hover table-striped">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Species</th>
+        <th>Age</th>
+        <th>Select</th>
+      </tr>
+    </thead>
+    <tbody>
+	<%	try {
+		Statement stmt = con.createStatement();
+		String shelterquery = "SELECT * FROM ShelteredIn_R as s INNER JOIN Animal as a on s.animalID=a.animalID where s.shelterID="+shelterid;
+		ResultSet result = stmt.executeQuery(shelterquery);
+		while(result.next()) {
+			int animalid = result.getInt("animalID");
+			String name = result.getString("Name");
+			String type = result.getString("Type");
+			String species = result.getString("Species");
+			int age = result.getInt("Age");
+			out.print("<tr>");
+			out.print("<td>"+name+"</td>\n");
+			out.print("<td>"+type+"</td>\n");
+			out.print("<td>"+species+"</td>\n");
+			out.print("<td>"+age+"</td>\n");
+			out.print("<td>");
+			out.print("<input type=radio name=animalid value="+animalid+">");
+			out.print("<td>");
+			out.print("</tr>"); 
+		}
+	}catch(Exception e) {
+		System.out.print(e);
+	}
+	%>
+    </tbody>	
+	</table>
+		<input class="btn btn-info" type="submit" value="Adopt Selected Animal">
+	</form>
 	
-	
+</div>
 	
 </div>
 

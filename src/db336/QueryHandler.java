@@ -83,6 +83,44 @@ public class QueryHandler{
 		dropdown +="</select>\n";
 		return dropdown;
 	}
-
+	public String getShelterName(int shelterid) {
+		String name ="";
+		try {
+			Statement stmt = con.createStatement();
+			String shelterquery = "SELECT shelter_name FROM Shelter WHERE shelterID="+shelterid;
+			ResultSet result = stmt.executeQuery(shelterquery);
+			if(!result.next())
+				return "ERROR SHELTER NOT FOUND";
+			name = result.getString("shelter_name");
+		}catch(Exception e) {
+			System.out.print(e);
+		}
+		return name;
+	}
+	//Was getting weird bugs involving parenthesis appearing throughout the page so decided to move the function directly into the jsp
+	public String getAnimalfromShelter(int shelterid) {
+		String row="";
+		try {
+			Statement stmt = con.createStatement();
+			String shelterquery = "SELECT * FROM ShelteredIn_R as s INNER JOIN Animal as a on s.animalID=a.animalID where s.shelterID="+shelterid;
+			ResultSet result = stmt.executeQuery(shelterquery);
+			while(result.next()) {
+				int animalid = result.getInt("animalID");
+				String name = result.getString("Name");
+				String type = result.getString("Type");
+				String species = result.getString("Species");
+				int age = result.getInt("Age");
+				row = 	"<tr>\n" + 
+						"	        <td>"+name+"</td>\n" + 
+						"	        <td>"+type+"</td>\n" + 
+						"	        <td>"+species+"</td>\n" + 
+						"	        <td>"+age+"</td>\n" + 
+						"        </tr>";
+			}
+		}catch(Exception e) {
+			System.out.print(e);
+		}
+		return row;
+	}
 	
 }

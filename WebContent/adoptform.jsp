@@ -39,11 +39,11 @@ else
 %>
 <div class="container">
 	<h1>Select a Shelter</h1>
+	<form method="get" action="adoptform2.jsp">
 	<%
 		out.print(qh.getShelterDropdown());
 	%>
 	<br>
-	<form method="get" action="adoptform2.jsp">
   		<input type="submit" class="btn btn-info" value="Submit Button">
 	</form >
 	
