@@ -99,12 +99,12 @@ if(typeselect==null)
 			<ol>
 				<li>Select the correct type of animal to enter</li>
 				<li>Enter the animal's DOB. </li>
-				<li><ul>
+				
+			</ol><ul>
 					<li>Enter the animal's species.</li>
 					<li>Capitalize the first letter.</li>
 					<li>Leave blank if species is unknown</li>
-				</ul></li>
-			</ol>
+				</ul>
 		</div>	
 	</div>
 	<form  method="post" action="#">

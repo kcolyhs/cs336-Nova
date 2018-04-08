@@ -40,7 +40,30 @@ public class QueryHandler{
 		}
 		return true;
 	}
-	//==============================
+	//=============================
+	public Boolean insertShelter(String name, String address,String phone) {
+		String query = "INSERT INTO Shelter(shelter_name,phone,address,shelterID) VALUES(?, ?, ?, ?)";
+		try {
+			Statement stmt = con.createStatement();
+			String maxquery = "SELECT MAX(shelterID) as max FROM Shelter";
+			ResultSet result = stmt.executeQuery(maxquery);
+			int maxID = 0;
+			if(result.next())
+				maxID = result.getInt("max");
+			
+			PreparedStatement ps = con.prepareStatement(query);
+			ps.setString(1, name);
+			ps.setString(2,phone);
+			ps.setString(3, address);
+			ps.setInt(4,maxID+1);
+			ps.executeUpdate();
+		}catch(Exception e){
+			System.out.print(e);
+			return false;
+		}
+		return true;
+		}
+	//=============================
 	public Boolean insertAdopter(String firstname, String lastname,String address,String phone, String email,int userid) {
 	String query = "INSERT INTO Adopter(userID,first_name,last_name,address,phone,email) VALUES(?, ?, ?, ?, ?, ?)";
 	try {
@@ -122,5 +145,18 @@ public class QueryHandler{
 		}
 		return row;
 	}
-	
+	public Boolean isRegAdopter(int userID) {
+		Boolean isAdopter = false;
+		try {
+			Statement stmt = con.createStatement();
+			String query = "SELECT * FROM Adopter where userID="+userID;
+			ResultSet result = stmt.executeQuery(query);
+			if(result.next())
+				isAdopter=true;
+		}catch(Exception e) {
+			System.out.print(e);
+		}
+		System.out.println(isAdopter);
+		return isAdopter;
+	}
 }

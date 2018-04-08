@@ -29,8 +29,10 @@ public void jspDestroy(){
 </head>
 <body>
 <% 
-if ((session.getAttribute("userid") == null) || (session.getAttribute("userid") == ""))
+if ((session.getAttribute("userid") == null) || (session.getAttribute("userid") == "")){
+	response.setHeader("Refresh", "0;url=login.jsp?loginAttempt=needed");
 	out.print(WebsiteElements.getHeader(false));
+}
 else
 	out.print(WebsiteElements.getHeader(true));
 

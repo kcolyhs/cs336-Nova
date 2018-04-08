@@ -30,10 +30,13 @@ public void jspDestroy(){
 </head>
 <body>
 <% 
-if ((session.getAttribute("userid") == null) || (session.getAttribute("userid") == "")){
-	out.print(WebsiteElements.getHeader(false));
+Object sessionID = session.getAttribute("userid");
+if ((sessionID == null) || ((String)sessionID).equals("")){
 	response.setHeader("Refresh", "0;url=login.jsp?loginAttempt=needed");
-	}
+	out.print(WebsiteElements.getHeader(false));
+}else if(!qh.isRegAdopter(Integer.valueOf((String)sessionID))){
+	response.setHeader("Refresh", "0;url=regadopt.jsp");
+}
 else
 	out.print(WebsiteElements.getHeader(true));
 %>

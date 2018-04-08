@@ -59,8 +59,7 @@ else
 			errormsg += "<li>User is already registered.</li>";
     	}if(!phone.matches("\\d{3}-\\d{3}-\\d{4}")){
 			error = true;
-			errormsg += "<li>Phone is not formatted correctly.</li>";
-				
+			errormsg += "<li>Phone is not formatted correctly.</li>";	
 		}if(firstname==null||lastname==null){
 			error = true;
 			errormsg += "<li>Both first and last name must be non-empty.</li>";
@@ -91,38 +90,39 @@ else
 
 
 <div class="container">
-		<form  method="get" action="#">
-			<input type="hidden" name="regadopt" value="true">
-			<div class="form-group row">
-				<div class="col-md-6">
-					<div class="form-group">
-						<div id="name" class="input-group">
-							<span class="input-group-addon">Name</span>
-							<input id="username" type="text" class="form-control" name="firstname" placeholder="firstname" required autofocus>
-							<input id="username" type="text" class="form-control" name="lastname" placeholder="lastname" required>
-						</div><br>
-						<div class="input-group">
-						    <span class="input-group-addon">Phone</span>
-						    <input id="password" type="tel" class="form-control" name="phone" placeholder="xxx-xxx-xxxx">
-						    <span class="input-group-addon">Email</span>
-						    <input id="password" type="email" class="form-control" name="email" required>
-						</div>
+	<h1>Register to be an Adopter</h1>
+	<form  method="get" action="#">
+		<input type="hidden" name="regadopt" value="true">
+		<div class="form-group row">
+			<div class="col-md-6">
+				<div class="form-group">
+					<div id="name" class="input-group">
+						<span class="input-group-addon">Name</span>
+						<input id="username" type="text" class="form-control" name="firstname" placeholder="firstname" required autofocus>
+						<input id="username" type="text" class="form-control" name="lastname" placeholder="lastname" required>
+					</div><br>
+					<div class="input-group">
+					    <span class="input-group-addon">Phone</span>
+					    <input id="password" type="tel" class="form-control" name="phone" placeholder="xxx-xxx-xxxx">
+					    <span class="input-group-addon">Email</span>
+					    <input id="password" type="email" class="form-control" name="email" required>
 					</div>
-					
-				</div>	
-				<div class="col-md-6">
-					<div class="input-group">					
-				    	<span class="input-group-addon">Documentation</span>
-				    	<input id="Documentation" type="file" class="form-control" name="documentation">
-			    	</div><br>
-			    	<div class="input-group">
-					    <span class="input-group-addon">Address</span>
-					    <input id="password" type="text" class="form-control" name="address">
-					</div>
-				</div>	
-			</div>
-			<input class="btn" type="submit" value="Register">
-		</form>
+				</div>
+				
+			</div>	
+			<div class="col-md-6">
+				<div class="input-group">					
+			    	<span class="input-group-addon">Documentation</span>
+			    	<input id="Documentation" type="file" class="form-control" name="documentation">
+		    	</div><br>
+		    	<div class="input-group">
+				    <span class="input-group-addon">Address</span>
+				    <input id="password" type="text" class="form-control" name="address">
+				</div>
+			</div>	
+		</div>
+		<input class="btn" type="submit" value="Register">
+	</form>
 </div>
 </body>
 </html>

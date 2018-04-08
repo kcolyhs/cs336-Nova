@@ -27,7 +27,7 @@ public void jspDestroy(){
 	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-<% 
+<% 	
 if ((session.getAttribute("userid") == null) || (session.getAttribute("userid") == ""))
 	out.print(WebsiteElements.getHeader(false));
 else
