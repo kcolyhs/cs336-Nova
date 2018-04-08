@@ -4,7 +4,7 @@ import java.sql.*;
 
 
 public class QueryHandler{
-	
+	  
 	private ApplicationDB db;
 	private Connection con;
 	
@@ -35,11 +35,34 @@ public class QueryHandler{
 			
 			
 		}catch(Exception e){
-			System.out.print(e);
+			System.out.println(e);
 			return false;
 		}
 		return true;
 	}
+	//=============================
+	public Boolean insertFoster(String firstname,String lastname, String address,String phone) {
+		String query = "INSERT INTO Foster_Home(first_name,last_name,phone,address,fosterID) VALUES(?, ?, ?, ?, ?)";
+		try {
+			Statement stmt = con.createStatement();
+			String maxquery = "SELECT MAX(fosterID) as max FROM Foster_Home";
+			ResultSet result = stmt.executeQuery(maxquery);
+			int maxID = 0;
+			if(result.next())
+				maxID = result.getInt("max");
+			PreparedStatement ps = con.prepareStatement(query);
+			ps.setString(1, firstname);
+			ps.setString(2, lastname);
+			ps.setString(3,phone);
+			ps.setString(4, address);
+			ps.setInt(5,maxID+1);
+			ps.executeUpdate();
+		}catch(Exception e){
+			System.out.println(e);
+			return false;
+		}
+		return true;
+		}
 	//=============================
 	public Boolean insertShelter(String name, String address,String phone) {
 		String query = "INSERT INTO Shelter(shelter_name,phone,address,shelterID) VALUES(?, ?, ?, ?)";
@@ -58,7 +81,7 @@ public class QueryHandler{
 			ps.setInt(4,maxID+1);
 			ps.executeUpdate();
 		}catch(Exception e){
-			System.out.print(e);
+			System.out.println(e);
 			return false;
 		}
 		return true;
@@ -67,12 +90,6 @@ public class QueryHandler{
 	public Boolean insertAdopter(String firstname, String lastname,String address,String phone, String email,int userid) {
 	String query = "INSERT INTO Adopter(userID,first_name,last_name,address,phone,email) VALUES(?, ?, ?, ?, ?, ?)";
 	try {
-		Statement stmt = con.createStatement();
-		String maxquery = "SELECT MAX(animalID) as max FROM Animal";
-		ResultSet result = stmt.executeQuery(maxquery);
-		result.next();
-		int maxID = result.getInt("max");
-		
 		PreparedStatement ps = con.prepareStatement(query);
 		ps.setInt(1, userid);
 		ps.setString(2,firstname);
@@ -82,7 +99,7 @@ public class QueryHandler{
 		ps.setString(6,email);
 		ps.executeUpdate();
 	}catch(Exception e){
-		System.out.print(e);
+		System.out.println(e);
 		return false;
 	}
 	return true;
@@ -100,7 +117,7 @@ public class QueryHandler{
 				dropdown+="<option value="+shelterid+">"+sheltername+"</option>/n";
 			}
 		}catch(Exception e) {
-			System.out.print(e);
+			System.out.println(e);
 		}
 		
 		dropdown +="</select>\n";
@@ -116,7 +133,7 @@ public class QueryHandler{
 				return "ERROR SHELTER NOT FOUND";
 			name = result.getString("shelter_name");
 		}catch(Exception e) {
-			System.out.print(e);
+			System.out.println(e);
 		}
 		return name;
 	}
@@ -128,7 +145,6 @@ public class QueryHandler{
 			String shelterquery = "SELECT * FROM ShelteredIn_R as s INNER JOIN Animal as a on s.animalID=a.animalID where s.shelterID="+shelterid;
 			ResultSet result = stmt.executeQuery(shelterquery);
 			while(result.next()) {
-				int animalid = result.getInt("animalID");
 				String name = result.getString("Name");
 				String type = result.getString("Type");
 				String species = result.getString("Species");
@@ -141,7 +157,7 @@ public class QueryHandler{
 						"        </tr>";
 			}
 		}catch(Exception e) {
-			System.out.print(e);
+			System.out.println(e);
 		}
 		return row;
 	}
@@ -154,7 +170,7 @@ public class QueryHandler{
 			if(result.next())
 				isAdopter=true;
 		}catch(Exception e) {
-			System.out.print(e);
+			System.out.println(e);
 		}
 		System.out.println(isAdopter);
 		return isAdopter;

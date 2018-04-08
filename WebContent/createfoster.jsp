@@ -37,29 +37,29 @@ else
 %>
 <%
     //Parse the form data
-    if(request.getParameter("createshelter")!=null){
-
+    if(request.getParameter("createfoster")!=null){
     	String phone = request.getParameter("phone");
     	String address = request.getParameter("address");
-    	String name= request.getParameter("name");
+    	String firstname= request.getParameter("firstname");
+    	String lastname= request.getParameter("lastname");
 	
 		boolean error=false;
 		String errormsg="<strong>Error!</strong><br> <ul>";
 		if(!phone.matches("\\d{3}-\\d{3}-\\d{4}")){
 			error = true;
 			errormsg += "<li>Phone is not formatted correctly.</li>";
-		}if(name==null|name.equals("")){
+		}if(firstname==null||firstname.equals("")||lastname==null||lastname.equals("")){
 			error = true;
 			errormsg += "<li>Both first and last name must be non-empty.</li>";
     	}if(address==null||address.equals("")){
 			error = true;
 			errormsg += "<li>Email is missing.</li>";
     	}if(!error){
-        	if(qh.insertShelter(name,address,phone)){
+        	if(qh.insertFoster(firstname,lastname,address,phone)){
         		//INSERT SUCCESS
         		out.print("<div class=\"alert alert-success alert-dismissible\">\n" + 
         				"  <a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a>\n" + 
-        				"  <strong>Success!</strong> - "+name+" has been registered.\n" + 
+        				"  <strong>Success!</strong> - "+firstname+","+lastname+" has been registered.\n" + 
         				"</div >");
         	}else{
     			error = true;
@@ -85,7 +85,7 @@ if(typeselect==null)
 	typeselect="";
 %>
 <div class="container">
-	<h1 align="center">Register an Animal Shelter 
+	<h1 align="center">Register as a Foster Home 
 	<button data-toggle="collapse" data-target="#instructions" class="btn btn-danger">
 		<span class="glyphicon glyphicon-info-sign"></span>
 	</button>
@@ -94,19 +94,23 @@ if(typeselect==null)
 		<div class=.container>
 			<h3>Instructions</h3>
 			<ol>
-				<li>Enter the name of the Shelter you wish to register</li>
+				<li>Enter the name of the owner of the Foster Home</li>
 				<li>Enter the phone number in the form "xxx-xxx-xxxx". </li>
 				<li>Enter the address in the form "111 Streetname St."
 			</ol>
 		</div>	
 	</div>
 	<form  method="get" action="#">
-		<input type="hidden" name="createshelter" value="true">
+		<input type="hidden" name="createfoster" value="true">
 		
 		<div class="form-group">
 			<div class="input-group">
-				<span class="input-group-addon">Shelter Name</span>
-				<input id="name" type="text" class="form-control" name="name" placeholder="Name" required autofocus>
+				<span class="input-group-addon">First Name</span>
+				<input id="name" type="text" class="form-control" name="firstname" placeholder="First Name" required autofocus>
+			</div>
+			<div class="input-group">
+				<span class="input-group-addon">Last Name</span>
+				<input id="name" type="text" class="form-control" name="lastname" placeholder="Name" required autofocus>
 			</div>
 			<div class="input-group">
 			    <span class="input-group-addon">Phone</span>
