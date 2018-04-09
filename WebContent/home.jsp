@@ -35,7 +35,26 @@ else
 %>
 
 
-<h1>PLACEHOLDER DOG</h1>
+<h1>CS366 Project Home Page</h1>
+<div class="container">
+	<h2>Things you can do on this website</h2>
+	<ul>
+		<li>Register an animal and then search for it along with the 1000+ other animals</li>
+		<li>Search for a Shelter/Foster Home</li>
+		<li>Check the vaccination records for a specific date/animal/vet</li>
+		<li>Register a new Shelter/Foster Home</li>
+		<li>Create a new user and register to adopt</li>
+		<li>Choose a shelter and adopt an animal(The database will record the adoption and remove it from the shelter's animal list)</li>
+	</ul>
+	<h2>Possible Future Improvements</h2>
+	<ul>
+		<li>Add more searching functions for searching animals/vaccination records</li>
+		<li>Add ways to directly move animals into shelter/foster home relationships from website</li>
+		<li>Create a permissions hierarchy instead of just Users->Adopters</li>
+	</ul>
+</div>
+
+
 <img src="${pageContext.request.contextPath}/images/img.jpg"/>
 
 

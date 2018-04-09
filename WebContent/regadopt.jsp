@@ -40,7 +40,7 @@ else
 <%
     if(request.getParameter("regadopt")!=null){
         //Parse the form data
-    	String firstname = request.getParameter("first");
+    	String firstname = request.getParameter("firstname");
     	String lastname = request.getParameter("lastname");
     	String phone = request.getParameter("phone");
     	String email = request.getParameter("email");

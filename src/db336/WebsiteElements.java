@@ -39,7 +39,7 @@ public static String getHeader(boolean loggedIn) {
 			"		        <span class=\"caret\"></span></a>\n" + 
 			"		        <ul class=\"dropdown-menu\">\n" + 
 			"		         	<li><a href=\"vetquery.jsp\">Search for a Veterinarian</a></li>\n" + 
-			"		          	<li><a href=\"#\">Check Vaccination Records</a></li>\n" + 
+			"		          	<li><a href=\"vaccinequery.jsp\">Check Vaccination Records</a></li>\n" + 
 			"		        </ul>\n" + 
 			"	        </li>\n" + 
 			"	      	<li><a href=\"regadopt.jsp\">Register to Adopt</a></li>\n" + 
