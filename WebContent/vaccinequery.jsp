@@ -41,65 +41,81 @@ try {
 	ApplicationDB db = new ApplicationDB();	
 	Connection con = db.getConnection();
 	
-	String shelterName, shelterPhone, shelterAddr;
-	if(request.getParameter("shelterName") != null)	{
-		shelterName = request.getParameter("shelterName");
+	String vetName, date, vaccName, animalName;
+	if(request.getParameter("vetName") != null)	{
+		vetName = request.getParameter("vetName");
 	}else{
-		shelterName = "";
+		vetName = "";
 	}
-	if(request.getParameter("shelterPhone") != null)	{
-		shelterPhone = request.getParameter("shelterPhone");
+	if(request.getParameter("date") != null)	{
+		date = request.getParameter("date");
 	}else{
-		shelterPhone = "";
+		date = "";
 	}
-	if(request.getParameter("shelterAddress") != null)	{
-		shelterAddr = request.getParameter("shelterAddress");
+	if(request.getParameter("vaccName") != null)	{
+		vaccName = request.getParameter("vaccName");
 	}else{
-		shelterAddr = "";
+		vaccName = "";
 	}
+	if(request.getParameter("animalName") != null)	{
+		animalName = request.getParameter("animalName");
+	}else{
+		animalName = "";
+	}
+	%>
+	<form class="form-inline" method="get" >
+		<div class="form-group mb-2">
+		<label for="vetName" class="sr-only">Shelter Name</label>
+			<input type="text" class="form-control" name="vetName" placeholder="Vet Name" value="<%=vetName%>">
+		</div>
+		<div class="form-group mb-2">
+			<label for="date" class="sr-only">Phone</label>
+			<input type="text" class="form-control" name="date" placeholder="Date" value="<%=date%>">
+		</div>
+		<div class="form-group mb-2">
+			<label for="vaccName" class="sr-only">Address</label>
+			<input type="text" class="form-control" name="vaccName" placeholder="Vaccine Name" value="<%=vaccName%>">
+		</div>
+		<div class="form-group mb-2">
+			<label for="animalName" class="sr-only">Address</label>
+			<input type="text" class="form-control" name="animalName" placeholder="Animal Name" value="<%=animalName%>">
+		</div>
+		<button type="submit" class="btn btn-primary">Search</button>
+	</form>
 	
-	//<form class="form-inline" method="get" >
-	//	<div class="form-group mb-2">
-	//	<label for="shelterName" class="sr-only">Shelter Name</label>
-	//		<input type="text" class="form-control" name="shelterName" placeholder="Shelter Name" value="<%=shelterName">
-	//	</div>
-	//	<div class="form-group mb-2">
-	//		<label for="shelterPhone" class="sr-only">Phone</label>
-	//		<input type="text" class="form-control" name="shelterPhone" placeholder="Phone" value="<%=shelterPhone">
-	//	</div>
-	//	<div class="form-group mb-2">
-	//		<label for="shelterAddress" class="sr-only">Address</label>
-	//		<input type="text" class="form-control" name="shelterAddress" placeholder="Address" value="<%=shelterAddr">
-	//	</div>
-	//	<button type="submit" class="btn btn-primary">Search</button>
-	//</form>
-	
-	
+	<%
 	//Create a SQL statement
 	Statement stmt = con.createStatement();
 	//Get the combobox from the index.jsp
 	
 	
-	String str = "SELECT vet.Name,i.Date, vac.vacc_name, a.Name FROM Animal as a INNER JOIN Issues_R as i ON i.animalID = a.animalID INNER JOIN Vaccines as vac on vac.vaccineID = i.vaccineID INNER JOIN Veterinarian as vet ON vet.vetID = i.vetID ORDER BY i.Date DESC";
-	/*boolean searching = false;
-	if(!shelterName.equals("")){
-		str = str + " WHERE Shelter.shelter_name LIKE \"%" + shelterName + "%\"";
+	String str = "SELECT vet.Name,i.Date, vac.vacc_name, a.Name FROM Animal as a INNER JOIN Issues_R as i ON i.animalID = a.animalID INNER JOIN Vaccines as vac on vac.vaccineID = i.vaccineID INNER JOIN Veterinarian as vet ON vet.vetID = i.vetID";
+	boolean searching = false;
+	if(!vetName.equals("")){
+		str = str + " WHERE vet.Name LIKE \"%" + vetName + "%\"";
 		searching = true;
 	}
-	if(!shelterPhone.equals("") && !searching){
-		str = str + " WHERE Shelter.phone LIKE \"%" + shelterPhone + "%\"";
+	if(!date.equals("") && !searching){
+		str = str + " WHERE i.Date LIKE \"%" + date + "%\"";
 		searching = true;
-	}else if(!shelterPhone.equals("") && searching){
-		str = str + " AND Shelter.phone LIKE \"%" + shelterPhone + "%\"";
+	}else if(!date.equals("") && searching){
+		str = str + " AND i.Date LIKE \"%" + date + "%\"";
 	}
-	if(!shelterAddr.equals("") && !searching){
-		str = str + " WHERE Shelter.address LIKE \"%" + shelterAddr + "%\"";
+	if(!vaccName.equals("") && !searching){
+		str = str + " WHERE vac.vacc_name LIKE \"%" + vaccName + "%\"";
 		searching = true;		
-	}else if(!shelterAddr.equals("") && searching){
-		str = str + " AND Shelter.address LIKE \"%" + shelterAddr + "%\"";
-	}*/
+	}else if(!vaccName.equals("") && searching){
+		str = str + " AND vac.vacc_name LIKE \"%" + vaccName + "%\"";
+	}
+	if(!animalName.equals("") && !searching){
+		str = str + " WHERE a.Name LIKE \"%" + animalName + "%\"";
+		searching = true;		
+	}else if(!animalName.equals("") && searching){
+		str = str + " AND a.Name LIKE \"%" + animalName + "%\"";
+	}
 	//Make a SELECT query from the sells table with the price range specified by the 'price' parameter at the index.jsp
 	//out.print("<p>" + str + "</p>");
+	str = str + " ORDER BY i.Date DESC";
 	ResultSet result = stmt.executeQuery(str);
 	
 	
